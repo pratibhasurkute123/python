@@ -1,0 +1,268 @@
+{%extends 'base.html'%}
+
+{%block body%}
+
+<main class="main">
+<div class="container-fluid page-header mb-5 position-relative overlay-bottom">
+        <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Account</h1>
+            <div class="d-inline-flex mb-lg-5">
+                <p class="m-0 text-white"><a class="text-white" href="{%url 'index'%}">Home</a></p>
+                <p class="m-0 text-white px-2">/</p>
+                <p class="m-0 text-white">Account</p>
+            </div>
+        </div>
+    </div>
+          <!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8">
+  <title>Account Dashboard</title>
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .accounts__container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .account__tabs {
+      background-color: #f9f9f9;
+      border-right: 1px solid #ddd;
+      padding: 20px;
+    }
+
+    .account__tab {
+      padding: 12px 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      color: #333;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .account__tab i {
+      margin-right: 10px;
+    }
+
+    .account__tab:hover,
+    .account__tab.active-tab {
+      background-color: #00796b;
+      color: #fff;
+    }
+
+    .tabs__content {
+      padding: 30px;
+    }
+
+    .tab__content {
+      display: none;
+    }
+
+    .tab__content.active-tab {
+      display: block;
+    }
+
+    .tab__header {
+      margin-bottom: 15px;
+    }
+
+    .tab__description {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+        </p>
+        <p class="account__tab" data-target="#orders">
+          <i class="fi fi-rs-shopping-bag"></i> Orders
+        </p>
+        <p class="account__tab" data-target="#update-profile">
+          <i class="fi fi-rs-user"></i> Update Profile
+        </p>
+        <p class="account__tab" data-target="#address">
+          <i class="fi fi-rs-marker"></i> My Address
+        </p>
+        <p class="account__tab" data-target="#change-password">
+          <i class="fi fi-rs-settings-sliders"></i> Change Password
+        </p>
+        <p class="account__tab"><i class="fi fi-rs-exit"></i> Logout</p>
+      </div>
+      <div class="tabs__content">
+        <div class="tab__content active-tab" content id="dashboard">
+          <h3 class="tab__header">Hello Pratibha</h3>
+          <div class="tab__body">
+            <p class="tab__description">
+              From your account dashboard. you can easily check & view your
+              recent order, manage your shipping and billing addresses and
+              edit your password and account details
+            </p>
+          </div>
+        </div>
+        <div class="tab__content" content id="orders">
+          <h3 class="tab__header">Your Orders</h3>
+          <div class="tab__body">
+            {%for order in orders%}
+            <table class="placed__order-table">
+              <thead>
+                <tr>
+                  <th>Order Id : {{order.id}}</th>
+                  <th>Date : {{order.date}}</th>
+                  <th rowspan="2" colspan="3">Total : {{order.total}}</th>
+                </tr>
+                <tr>
+                  <th>Payment Id : {{order.payid}}</th>
+                  <th>Address : {{order.address.address}}</th>
+                </tr>
+                <tr>
+                  <th>Image</th>
+                  <th>name</th>
+                  <th>qty</th>
+                  <th>Price</th>
+                  <th>subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {%for item in order.items.all%}
+                <tr>
+                  <td>{{item.product.name}}</td>
+                  <td><img src="media/{{item.product.image}}" alt="{{item.product.image}}" width="50px" height="50px">
+                  </td>
+                  <td>{{item.qty}}</td>
+                  <td>{{item.price}}</td>
+                  <td>{{item.subTotal}}</td>
+                </tr>
+                {%endfor%}
+
+              </tbody>
+            </table>
+            <br><br>
+            {%endfor%}
+          </div>
+        </div>
+        <div class="tab__content" content id="update-profile">
+          <h3 class="tab__header">Update Profile</h3>
+          <div class="tab__body">
+            <form class="form grid">
+              <input type="text" placeholder="Username" class="form__input" />
+              <div class="form__btn">
+                <!-- <button class="btn btn--md btn--green">Save</button> -->
+                 </div></p>
+                <button type="submit" class=newsletter__btn style="background-color: skyblue; color: white;">Save</button>
+
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="tab__content" content id="address">
+          <div style="display: flex; margin:10px;">
+            <textarea name="address" id="adr" class="form__input"></textarea>
+            <!-- <button class="newsletter__btn btn--green" {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+          } style="margin-left: 5px;" onclick="addaddress()">Add Address</button> -->
+           <button class="newsletter__btn" style="background-color: skyblue; color: white; margin-left: 5px;" onclick="addaddress()">Add Address</button>
+
+          </div>
+          <br>
+          <h3 class="tab__header">Shipping Address</h3>
+
+          <div id="viewAddress"></div>
+
+        </div>
+        <div class="tab__content" content id="change-password">
+          <h3 class="tab__header">Change Password</h3>
+          <div class="tab__body">
+            <form class="form grid">
+              <input type="password" placeholder="Current Password" class="form__input" />
+              <input type="password" placeholder="New Password" class="form__input" />
+              <input type="password" placeholder="Confirm Password" class="form__input" />
+              <div class="form__btn">
+                </div></p>
+                 <button type="submit" class="newsletter__btn"style="background-color:skyblue; color: white;">Save</button>
+              </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=============== NEWSLETTER ===============-->
+  <section class="newsletter section">
+    <div class="newsletter__container container grid">
+      <h3 class="newsletter__title flex">
+        <img src="./static/assets/img/icon-email.svg" alt="" class="newsletter__icon" />
+        Sign in to Newsletter
+      </h3>
+      <p class="newsletter__description">
+        ...and receive $25 coupon for first shopping.
+      </p>
+      <form action="" class="newsletter__form">
+        <input type="text" placeholder="Enter Your Email" class="newsletter__input" />
+        <button type="submit" class="newsletter__btn">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+
+<script>
+
+  $(document).ready(function () {
+    load()
+  })
+
+  const addaddress = () => {
+    var address = $("#adr").val()
+    $.get('address', { address }, function (rt) {
+      location.reload()
+    })
+  }
+
+  const load = () => {
+
+    $.get('get-address', {}, function (rt) {
+
+      var address = ""
+      rt.address.map(ele => {
+        address += ` <div class="tab__body">
+            <address class="address">
+             ${ele.address}
+            </address>
+            
+            <a href="#" class="edit">Edit</a>
+          </div>`
+      })
+
+      $("#viewAddress").html(address)
+
+    })
+
+  }
+
+
+</script>
+
+{%endblock%}
